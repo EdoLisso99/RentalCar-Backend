@@ -1,25 +1,44 @@
 package com.example.rentalcar.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "mezzo")
 public class Mezzo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
+
+    @Column(name = "anno_di_immatricolazione")
     private Date annoDiImmatricolazione;
+
+    @Column(name = "casa_costruttrice")
     private String casaCostruttrice;
+
+    @Column(name = "modello")
     private String modello;
+
+    @Column(name = "targa")
     private String targa;
+
+    @Column(name = "tipo")
     private String tipo;
 
-    @OneToMany(mappedBy = "auto",
-            cascade = CascadeType.DETACH)
-    private Set<Prenotazione> prenotazioniMezzi;
+//    @JsonManagedReference
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "auto")
+    private List<Prenotazione> prenotazioniMezzi;
 
     public Mezzo() {
     }
@@ -81,11 +100,12 @@ public class Mezzo implements Serializable {
         this.tipo = tipo;
     }
 
-    public Set<Prenotazione> getPrenotazioniMezzi() {
+    @JsonIgnore
+    public List<Prenotazione> getPrenotazioniMezzi() {
         return prenotazioniMezzi;
     }
 
-    public void setPrenotazioniMezzi(Set<Prenotazione> prenotazioniMezzi) {
+    public void setPrenotazioniMezzi(List<Prenotazione> prenotazioniMezzi) {
         this.prenotazioniMezzi = prenotazioniMezzi;
     }
 

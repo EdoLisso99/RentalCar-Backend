@@ -1,11 +1,15 @@
 package com.example.rentalcar.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
+@Table(name = "utente")
 public class Utente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +20,13 @@ public class Utente implements Serializable {
     private String ruolo;
     private Date dataDiNascita;
 
-    @OneToMany(mappedBy = "utente",
-            cascade = CascadeType.DETACH)
-    private Set<Prenotazione> prenotazioniUtenti;
+
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "utente"
+    )
+    private List<Prenotazione> prenotazioniUtenti;
 
     public Utente() {
     }
@@ -71,11 +79,12 @@ public class Utente implements Serializable {
         this.dataDiNascita = dataDiNascita;
     }
 
-    public Set<Prenotazione> getPrenotazioniUtenti() {
+    @JsonIgnore
+    public List<Prenotazione> getPrenotazioniUtenti() {
         return prenotazioniUtenti;
     }
 
-    public void setPrenotazioniUtenti(Set<Prenotazione> prenotazioniUtenti) {
+    public void setPrenotazioniUtenti(List<Prenotazione> prenotazioniUtenti) {
         this.prenotazioniUtenti = prenotazioniUtenti;
     }
 

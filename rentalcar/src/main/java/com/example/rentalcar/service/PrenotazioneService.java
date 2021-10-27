@@ -9,9 +9,13 @@ import java.util.List;
 @Service
 public class PrenotazioneService {
     private final PrenotazioneRepo prenotazioneRepo;
+    private final MezzoService mezzoService;
+    private final UtenteService utenteService;
 
-    public PrenotazioneService(PrenotazioneRepo prenotazioneRepo) {
+    public PrenotazioneService(PrenotazioneRepo prenotazioneRepo, MezzoService mezzoService, UtenteService utenteService) {
         this.prenotazioneRepo = prenotazioneRepo;
+        this.mezzoService = mezzoService;
+        this.utenteService = utenteService;
     }
 
     public Prenotazione addPrenotazione(Prenotazione prenotazione){
@@ -19,7 +23,7 @@ public class PrenotazioneService {
     }
 
     public List<Prenotazione> getAllPrenotazioni(){
-        return  prenotazioneRepo.findAll();
+        return (List<Prenotazione>) prenotazioneRepo.findAll();
     }
 
     public Prenotazione updatePrenotazione(Prenotazione prenotazione){

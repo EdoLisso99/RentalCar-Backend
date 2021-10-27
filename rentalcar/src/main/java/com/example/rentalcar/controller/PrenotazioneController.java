@@ -1,7 +1,9 @@
 package com.example.rentalcar.controller;
 
 import com.example.rentalcar.entities.Prenotazione;
+import com.example.rentalcar.service.MezzoService;
 import com.example.rentalcar.service.PrenotazioneService;
+import com.example.rentalcar.service.UtenteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,7 @@ public class PrenotazioneController {
 
     private final PrenotazioneService prenotazioneService;
 
-    public PrenotazioneController(PrenotazioneService prenotazioneService) {
+    public PrenotazioneController(PrenotazioneService prenotazioneService, MezzoService mezzoService, UtenteService utenteService) {
         this.prenotazioneService = prenotazioneService;
     }
 
@@ -32,8 +34,8 @@ public class PrenotazioneController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Prenotazione> createPrenotazione(@RequestBody Prenotazione user){
-        prenotazione = prenotazioneService.addPrenotazione(user);
+    public ResponseEntity<Prenotazione> createPrenotazione(@RequestBody Prenotazione prenotazione){
+        prenotazione = prenotazioneService.addPrenotazione(prenotazione);
         return new ResponseEntity<>(prenotazione, HttpStatus.CREATED);
     }
 

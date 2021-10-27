@@ -1,5 +1,8 @@
 package com.example.rentalcar.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,9 +18,11 @@ public class Prenotazione implements Serializable {
     private Date dataDiFine;
     private Boolean accettata;
 
+
     @ManyToOne
     @JoinColumn(name = "auto")
     private Mezzo auto;
+
 
     @ManyToOne
     @JoinColumn(name = "utente")
@@ -72,6 +77,7 @@ public class Prenotazione implements Serializable {
     public void setAuto(Mezzo auto) {
         this.auto = auto;
     }
+
 
     public Utente getUtente() {
         return utente;

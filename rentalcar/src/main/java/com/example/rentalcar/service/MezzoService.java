@@ -22,7 +22,7 @@ public class MezzoService {
     }
 
     public List<Mezzo> getAllMezzi() {
-        return mezzoRepo.findAll();
+        return (List<Mezzo>) mezzoRepo.findAll();
     }
 
     public Mezzo updateMezzo(Mezzo mezzo){

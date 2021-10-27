@@ -22,7 +22,7 @@ public class UtenteService {
     }
 
     public List<Utente> getAllUtenti(){
-        return  utenteRepo.findAll();
+        return (List<Utente>) utenteRepo.findAll();
     }
 
     public Utente updateUtente(Utente utente){
