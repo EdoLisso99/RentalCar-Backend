@@ -4,6 +4,8 @@ import com.example.rentalcar.repo.PrenotazioneRepo;
 import com.example.rentalcar.entities.Prenotazione;
 import com.example.rentalcar.exception.PrenotazioneNotFoundException;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -39,6 +41,7 @@ public class PrenotazioneService {
                 new PrenotazioneNotFoundException("Prenotazione " + id + " non è stato trovato"));
     }
 
+    @Transactional
     public void deletePrenotazione(Long id) throws Exception {
         Prenotazione prenotazione = findPrenotazioneById(id);
         if(prenotazione != null){

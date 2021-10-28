@@ -1,14 +1,12 @@
 package com.example.rentalcar.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "mezzo")
@@ -33,7 +31,6 @@ public class Mezzo implements Serializable {
     @Column(name = "tipo")
     private String tipo;
 
-//    @JsonManagedReference
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,

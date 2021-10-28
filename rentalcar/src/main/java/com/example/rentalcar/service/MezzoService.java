@@ -3,16 +3,15 @@ package com.example.rentalcar.service;
 import com.example.rentalcar.repo.MezzoRepo;
 import com.example.rentalcar.entities.Mezzo;
 import com.example.rentalcar.exception.MezzoNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class MezzoService {
     private final MezzoRepo mezzoRepo;
 
-    
     public MezzoService(MezzoRepo mezzoRepo) {
         this.mezzoRepo = mezzoRepo;
     }
@@ -36,6 +35,10 @@ public class MezzoService {
     public Mezzo findMezzoById(Long id){
         return mezzoRepo.findById(id).orElseThrow(() ->
                 new MezzoNotFoundException("Mezzo " + id + " non è stato trovato"));
+    }
+
+    public List<Mezzo> findAvailableMezzi(Date inizio, Date fine){
+        return mezzoRepo.getAvailableMezzi(inizio, fine);
     }
 
     public void deleteMezzo(Long id) throws Exception {

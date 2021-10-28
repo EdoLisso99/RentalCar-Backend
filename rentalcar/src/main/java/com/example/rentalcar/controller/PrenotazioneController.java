@@ -17,7 +17,7 @@ public class PrenotazioneController {
 
     private final PrenotazioneService prenotazioneService;
 
-    public PrenotazioneController(PrenotazioneService prenotazioneService, MezzoService mezzoService, UtenteService utenteService) {
+    public PrenotazioneController(PrenotazioneService prenotazioneService) {
         this.prenotazioneService = prenotazioneService;
     }
 
@@ -40,8 +40,8 @@ public class PrenotazioneController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<Prenotazione> updatePrenotazione(@RequestBody Prenotazione user){
-        prenotazione = prenotazioneService.updatePrenotazione(user);
+    public ResponseEntity<Prenotazione> updatePrenotazione(@RequestBody Prenotazione prenotazione){
+        prenotazione = prenotazioneService.updatePrenotazione(prenotazione);
         return new ResponseEntity<>(prenotazione, HttpStatus.OK);
     }
 

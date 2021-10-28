@@ -2,11 +2,13 @@ package com.example.rentalcar.controller;
 
 import com.example.rentalcar.entities.Mezzo;
 import com.example.rentalcar.service.MezzoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.rentalcar.util.DateExample;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -15,7 +17,6 @@ public class MezzoController {
     Mezzo mezzo = null;
     private final MezzoService mezzoService;
 
-    
     public MezzoController(MezzoService mezzoService) {
         this.mezzoService = mezzoService;
     }
@@ -50,5 +51,9 @@ public class MezzoController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    @PostMapping("/available")
+    public ResponseEntity<List<Mezzo>> getAvailableMezzi(@RequestBody DateExample dateExample){
+        List<Mezzo> mezzi = mezzoService.findAvailableMezzi(dateExample.inizio, dateExample.fine);
+        return new ResponseEntity<>(mezzi, HttpStatus.OK);
+    }
 }
