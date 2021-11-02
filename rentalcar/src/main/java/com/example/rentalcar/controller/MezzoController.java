@@ -2,12 +2,10 @@ package com.example.rentalcar.controller;
 
 import com.example.rentalcar.entities.Mezzo;
 import com.example.rentalcar.service.MezzoService;
-import com.example.rentalcar.util.DateExample;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,10 +48,9 @@ public class MezzoController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //TODO Risolvere cambiando con RequestParam!!!
-    @PostMapping("/available")
-    public ResponseEntity<List<Mezzo>> getAvailableMezzi(@RequestBody DateExample dateExample){
-        List<Mezzo> mezzi = mezzoService.findAvailableMezzi(dateExample.inizio, dateExample.fine);
+    @GetMapping("/available")
+    public ResponseEntity<List<Mezzo>> getAvailableMezzi(@RequestParam String inizio, @RequestParam String fine){
+        List<Mezzo> mezzi = mezzoService.findAvailableMezzi(inizio, fine);
         return new ResponseEntity<>(mezzi, HttpStatus.OK);
     }
 }

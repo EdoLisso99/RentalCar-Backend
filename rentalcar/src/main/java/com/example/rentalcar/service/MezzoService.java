@@ -37,7 +37,7 @@ public class MezzoService {
                 new MezzoNotFoundException("Mezzo " + id + " non è stato trovato"));
     }
 
-    public List<Mezzo> findAvailableMezzi(Date inizio, Date fine){
+    public List<Mezzo> findAvailableMezzi(String inizio, String fine){
         return mezzoRepo.getAvailableMezzi(inizio, fine);
     }
 

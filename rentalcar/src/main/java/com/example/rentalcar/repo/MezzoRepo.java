@@ -21,7 +21,7 @@ public interface MezzoRepo extends CrudRepository<Mezzo, Long> {
             "(p.data_di_fine BETWEEN ?1 AND ?2) OR " +
             "(p.data_di_inizio < ?1 AND p.data_di_fine > ?2)))",
             nativeQuery = true)
-    List<Mezzo> getAvailableMezzi(Date inizio, Date fine);
+    List<Mezzo> getAvailableMezzi(String inizio, String fine);
 
 }
 
