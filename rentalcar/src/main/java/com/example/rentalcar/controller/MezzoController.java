@@ -30,7 +30,7 @@ public class MezzoController {
         return new ResponseEntity<>(mezzo, HttpStatus.OK);
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<Mezzo> createMezzo(@RequestBody Mezzo vehicle){
         Mezzo mezzo = mezzoService.addMezzo(vehicle);
         return new ResponseEntity<>(mezzo, HttpStatus.CREATED);

@@ -31,7 +31,7 @@ public class PrenotazioneController {
         return new ResponseEntity<>(prenotazione, HttpStatus.OK);
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<Prenotazione> createPrenotazione(@RequestBody Prenotazione prenotazione){
         prenotazione = prenotazioneService.addPrenotazione(prenotazione);
         return new ResponseEntity<>(prenotazione, HttpStatus.CREATED);

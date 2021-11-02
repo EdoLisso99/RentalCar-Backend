@@ -30,7 +30,7 @@ public class UtenteController {
         return new ResponseEntity<>(utente, HttpStatus.OK);
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<Utente> createUtente(@RequestBody Utente user){
         Utente utente = utenteService.addUtente(user);
         return new ResponseEntity<>(utente, HttpStatus.CREATED);
