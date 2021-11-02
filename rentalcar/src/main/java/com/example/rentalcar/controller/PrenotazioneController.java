@@ -13,8 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/prenotazione")
 public class PrenotazioneController {
-    Prenotazione prenotazione = null;
-
     private final PrenotazioneService prenotazioneService;
 
     public PrenotazioneController(PrenotazioneService prenotazioneService) {
@@ -29,23 +27,23 @@ public class PrenotazioneController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Prenotazione> getPrenotazioneById (@PathVariable("id") Long id) {
-        prenotazione = prenotazioneService.findPrenotazioneById(id);
+        Prenotazione prenotazione = prenotazioneService.findPrenotazioneById(id);
         return new ResponseEntity<>(prenotazione, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PutMapping("/create")
     public ResponseEntity<Prenotazione> createPrenotazione(@RequestBody Prenotazione prenotazione){
         prenotazione = prenotazioneService.addPrenotazione(prenotazione);
         return new ResponseEntity<>(prenotazione, HttpStatus.CREATED);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Prenotazione> updatePrenotazione(@RequestBody Prenotazione prenotazione){
         prenotazione = prenotazioneService.updatePrenotazione(prenotazione);
         return new ResponseEntity<>(prenotazione, HttpStatus.OK);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletePrenotazione(@PathVariable Long id) throws Exception {
         prenotazioneService.deletePrenotazione(id);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/utente")
 public class UtenteController {
-    Utente utente = null;
     private final UtenteService utenteService;
 
     public UtenteController(UtenteService utenteService) {
@@ -27,23 +26,23 @@ public class UtenteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Utente> getUtenteById (@PathVariable("id") Long id) {
-        utente = utenteService.findUtenteById(id);
+        Utente utente = utenteService.findUtenteById(id);
         return new ResponseEntity<>(utente, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PutMapping("/create")
     public ResponseEntity<Utente> createUtente(@RequestBody Utente user){
-        utente = utenteService.addUtente(user);
+        Utente utente = utenteService.addUtente(user);
         return new ResponseEntity<>(utente, HttpStatus.CREATED);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Utente> updateUtente(@RequestBody Utente user){
-        utente = utenteService.updateUtente(user);
+        Utente utente = utenteService.updateUtente(user);
         return new ResponseEntity<>(utente, HttpStatus.OK);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUtente(@PathVariable Long id) throws Exception {
         utenteService.deleteUtente(id);
         return new ResponseEntity<>(HttpStatus.OK);
