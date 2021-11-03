@@ -25,7 +25,7 @@ public class PrenotazioneService {
     }
 
     public List<Prenotazione> getAllPrenotazioni(){
-        return (List<Prenotazione>) prenotazioneRepo.findAll();
+        return prenotazioneRepo.findAll();
     }
 
     public Prenotazione updatePrenotazione(Prenotazione prenotazione){

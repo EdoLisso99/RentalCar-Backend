@@ -1,13 +1,17 @@
 package com.example.rentalcar.repo;
 
 import com.example.rentalcar.entities.Utente;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UtenteRepo extends CrudRepository<Utente, Long> {
+public interface UtenteRepo extends JpaRepository<Utente, Long> {
     Optional<Utente> findById(Long id);
+
     void deleteById(Long id);
+
+    Utente findByNome(String nome);
 }

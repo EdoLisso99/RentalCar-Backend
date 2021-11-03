@@ -1,11 +1,10 @@
 package com.example.rentalcar.service;
 
-import com.example.rentalcar.repo.MezzoRepo;
 import com.example.rentalcar.entities.Mezzo;
 import com.example.rentalcar.exception.MezzoNotFoundException;
+import com.example.rentalcar.repo.MezzoRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,7 +20,7 @@ public class MezzoService {
     }
 
     public List<Mezzo> getAllMezzi() {
-        return (List<Mezzo>) mezzoRepo.findAll();
+        return mezzoRepo.findAll();
     }
 
     public Mezzo updateMezzo(Mezzo mezzo){
