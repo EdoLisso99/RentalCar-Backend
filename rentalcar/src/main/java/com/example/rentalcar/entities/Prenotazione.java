@@ -18,11 +18,9 @@ public class Prenotazione implements Serializable {
     private Date dataDiFine;
     private Boolean accettata;
 
-
     @ManyToOne
     @JoinColumn(name = "auto")
     private Mezzo auto;
-
 
     @ManyToOne
     @JoinColumn(name = "utente")
