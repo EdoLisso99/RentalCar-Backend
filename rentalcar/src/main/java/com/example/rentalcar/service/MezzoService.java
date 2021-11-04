@@ -5,6 +5,7 @@ import com.example.rentalcar.exception.MezzoNotFoundException;
 import com.example.rentalcar.repo.MezzoRepo;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -15,6 +16,7 @@ public class MezzoService {
         this.mezzoRepo = mezzoRepo;
     }
 
+    @Transactional
     public Mezzo addMezzo(Mezzo mezzo){
         return mezzoRepo.save(mezzo);
     }
@@ -23,10 +25,12 @@ public class MezzoService {
         return mezzoRepo.findAll();
     }
 
+    @Transactional
     public Mezzo updateMezzo(Mezzo mezzo){
         return mezzoRepo.save(mezzo);
     }
 
+    @Transactional
     public void deleteMezzo(Mezzo mezzo){
         mezzoRepo.delete(mezzo);
     }
@@ -40,6 +44,7 @@ public class MezzoService {
         return mezzoRepo.getAvailableMezzi(inizio, fine);
     }
 
+    @Transactional
     public void deleteMezzo(Long id) throws Exception {
         Mezzo mezzo = findMezzoById(id);
         if(mezzo != null){

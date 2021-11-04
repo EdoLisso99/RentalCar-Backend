@@ -14,8 +14,14 @@ public class Prenotazione implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
+
+    @Column(name = "data_di_inizio")
     private Date dataDiInizio;
+
+    @Column(name = "data_di_fine")
     private Date dataDiFine;
+
+    @Column(name = "accettata")
     private Boolean accettata;
 
     @ManyToOne

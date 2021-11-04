@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface PrenotazioneRepo extends JpaRepository<Prenotazione, Long> {
 
     Optional<Prenotazione> findById(Long id);
+
     void deleteById(Long id);
 }

@@ -20,6 +20,7 @@ public class PrenotazioneService {
         this.utenteService = utenteService;
     }
 
+    @Transactional
     public Prenotazione addPrenotazione(Prenotazione prenotazione){
         return prenotazioneRepo.save(prenotazione);
     }
@@ -28,10 +29,12 @@ public class PrenotazioneService {
         return prenotazioneRepo.findAll();
     }
 
+    @Transactional
     public Prenotazione updatePrenotazione(Prenotazione prenotazione){
         return prenotazioneRepo.save(prenotazione);
     }
 
+    @Transactional
     public void deletePrenotazione(Prenotazione prenotazione){
         prenotazioneRepo.delete(prenotazione);
     }
