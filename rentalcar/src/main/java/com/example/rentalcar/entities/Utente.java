@@ -15,11 +15,18 @@ public class Utente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
-    private String nome;
-    private String cognome;
-    private String ruolo;
-    private Date dataDiNascita;
 
+    @Column(name = "nome")
+    private String nome;
+
+    @Column(name = "cognome")
+    private String cognome;
+
+    @Column(name = "ruolo")
+    private String ruolo;
+
+    @Column(name = "data_di_nascita")
+    private Date dataDiNascita;
 
     @OneToMany(
             fetch = FetchType.LAZY,
