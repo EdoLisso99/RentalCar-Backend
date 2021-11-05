@@ -29,6 +29,12 @@ public class MezzoController {
         return new ResponseEntity<>(mezzo, HttpStatus.OK);
     }
 
+    @GetMapping("/available")
+    public ResponseEntity<List<Mezzo>> getAvailableMezzi(@RequestParam String inizio, @RequestParam String fine){
+        List<Mezzo> mezzi = mezzoService.findAvailableMezzi(inizio, fine);
+        return new ResponseEntity<>(mezzi, HttpStatus.OK);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<Mezzo> createMezzo(@RequestBody Mezzo vehicle){
         Mezzo mezzo = mezzoService.addMezzo(vehicle);
@@ -47,9 +53,4 @@ public class MezzoController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/available")
-    public ResponseEntity<List<Mezzo>> getAvailableMezzi(@RequestParam String inizio, @RequestParam String fine){
-        List<Mezzo> mezzi = mezzoService.findAvailableMezzi(inizio, fine);
-        return new ResponseEntity<>(mezzi, HttpStatus.OK);
-    }
 }

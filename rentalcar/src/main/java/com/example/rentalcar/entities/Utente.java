@@ -1,7 +1,6 @@
 package com.example.rentalcar.entities;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,6 +27,28 @@ public class Utente implements Serializable {
     @Column(name = "data_di_nascita")
     private Date dataDiNascita;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
@@ -36,6 +57,17 @@ public class Utente implements Serializable {
     private List<Prenotazione> prenotazioniUtenti;
 
     public Utente() {
+    }
+
+    public Utente(Long id, String nome, String cognome, String ruolo, String username, String password, List<Prenotazione> prenotazioniUtenti) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.ruolo = ruolo;
+        this.dataDiNascita = new Date();
+        this.username = username;
+        this.password = password;
+        this.prenotazioniUtenti = prenotazioniUtenti;
     }
 
     public Utente(Long id, String nome, String cognome, String ruolo, Date dataDiNascita) {
@@ -95,6 +127,8 @@ public class Utente implements Serializable {
         this.prenotazioniUtenti = prenotazioniUtenti;
     }
 
+
+
     @Override
     public String toString() {
         return "Utente{" +
@@ -106,3 +140,4 @@ public class Utente implements Serializable {
                 '}';
     }
 }
+

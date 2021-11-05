@@ -3,25 +3,33 @@ package com.example.rentalcar.service;
 import com.example.rentalcar.entities.Utente;
 import com.example.rentalcar.exception.UtenteNotFoundException;
 import com.example.rentalcar.repo.UtenteRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-@Service
+@Service @Transactional @RequiredArgsConstructor
 public class UtenteService implements UserDetailsService {
-    private final UtenteRepo utenteRepo;
 
-    public UtenteService(UtenteRepo utenteRepo) {
-        this.utenteRepo = utenteRepo;
+    private final UtenteRepo utenteRepo;
+    private final PasswordEncoder passwordEncoder;
+
+    public Utente findUtenteByUsername(String username){
+        return utenteRepo.findByUsername(username).orElseThrow(() ->
+                new UtenteNotFoundException("Utente " + username + " non è stato trovato"));
     }
 
     @Transactional
     public Utente addUtente(Utente utente){
+        utente.setPassword(passwordEncoder.encode(utente.getPassword()));
         return utenteRepo.save(utente);
     }
 
@@ -56,14 +64,12 @@ public class UtenteService implements UserDetailsService {
 
     }
 
-    //Implementazione di spring security in corso; non utilizzare il metodo, nè decommentare il codice
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Utente utente = utenteRepo.findByNome(username);
-//        if(utente == null){
-//            throw new UsernameNotFoundException("Utente non trovato nel database");
-//        }
-//        return new org.springframework.security.core.userdetails.User(utente.getU);
-        return null;
+        Utente utente = utenteRepo.findByUsername(username).orElseThrow(() ->
+                new UtenteNotFoundException("Utente " + username + " non è stato trovato"));
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(utente.getRuolo()));
+        return new org.springframework.security.core.userdetails.User(utente.getUsername(), utente.getPassword(), authorities);
     }
 }
