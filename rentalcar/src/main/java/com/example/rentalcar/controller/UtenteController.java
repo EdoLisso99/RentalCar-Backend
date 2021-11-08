@@ -47,5 +47,11 @@ public class UtenteController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/username/{username}")
+    public ResponseEntity<Utente> getUtenteByUsername(@PathVariable String username){
+        Utente utente = utenteService.findUtenteByUsername(username);
+        return new ResponseEntity<>(utente, HttpStatus.OK);
+    }
+
 
 }

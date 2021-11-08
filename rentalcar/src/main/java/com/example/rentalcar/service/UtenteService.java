@@ -5,6 +5,7 @@ import com.example.rentalcar.exception.UtenteNotFoundException;
 import com.example.rentalcar.repo.UtenteRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,7 +28,6 @@ public class UtenteService implements UserDetailsService {
                 new UtenteNotFoundException("Utente " + username + " non è stato trovato"));
     }
 
-    @Transactional
     public Utente addUtente(Utente utente){
         utente.setPassword(passwordEncoder.encode(utente.getPassword()));
         return utenteRepo.save(utente);
@@ -37,12 +37,11 @@ public class UtenteService implements UserDetailsService {
         return utenteRepo.findAll();
     }
 
-    @Transactional
     public Utente updateUtente(Utente utente){
+        utente.setPassword(passwordEncoder.encode(utente.getPassword()));
         return utenteRepo.save(utente);
     }
 
-    @Transactional
     public void deleteUtente(Utente utente){
         utenteRepo.delete(utente);
     }
@@ -52,7 +51,6 @@ public class UtenteService implements UserDetailsService {
                 new UtenteNotFoundException("Utente " + id + " non è stato trovato"));
     }
 
-    @Transactional
     public void deleteUtente(Long id) throws Exception {
         Utente utente = findUtenteById(id);
         if(utente != null){
@@ -70,6 +68,7 @@ public class UtenteService implements UserDetailsService {
                 new UtenteNotFoundException("Utente " + username + " non è stato trovato"));
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(utente.getRuolo()));
-        return new org.springframework.security.core.userdetails.User(utente.getUsername(), utente.getPassword(), authorities);
+        User x = new org.springframework.security.core.userdetails.User(utente.getUsername(), utente.getPassword(), authorities);
+        return x;
     }
 }

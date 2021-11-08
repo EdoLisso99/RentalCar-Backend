@@ -12,7 +12,7 @@ public interface UtenteRepo extends JpaRepository<Utente, Long> {
 
     void deleteById(Long id);
 
-    Optional<Utente> findByUsername(String nome);
+    Optional<Utente> findByUsername(String username);
 
     Optional<Utente> findByRuolo(String ruolo);
 

@@ -15,6 +15,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import static org.springframework.http.HttpMethod.*;
 
@@ -31,18 +34,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+        http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/**").permitAll();
-        http.authorizeRequests().antMatchers(DELETE, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
-        http.authorizeRequests().antMatchers(DELETE, "/prenotazione/**").permitAll();
-        http.authorizeRequests().antMatchers(POST, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
-        http.authorizeRequests().antMatchers(POST, "/prenotazione/**").permitAll();
-        http.authorizeRequests().antMatchers(PUT, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
-        http.authorizeRequests().antMatchers(PUT, "/prenotazione/**").permitAll();
-        //TODO Decommentare appena si è verificato che i permessi dati si applicano correttamente
-//        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().permitAll();
+
+//        http.authorizeRequests().antMatchers("/login").permitAll();
+//        http.authorizeRequests().antMatchers(GET, "/**").permitAll();
+//        http.authorizeRequests().antMatchers(DELETE, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
+//        http.authorizeRequests().antMatchers(DELETE, "/prenotazione/**").permitAll();
+//        http.authorizeRequests().antMatchers(POST, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
+//        http.authorizeRequests().antMatchers(POST, "/prenotazione/**").permitAll();
+//        http.authorizeRequests().antMatchers(PUT, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
+//        http.authorizeRequests().antMatchers(PUT, "/prenotazione/**").permitAll();
+        //TO. verificato che i permessi dati si applicano correttamente
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
@@ -51,6 +55,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+
+        return source;
     }
 
 }
