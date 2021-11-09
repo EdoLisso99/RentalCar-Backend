@@ -49,5 +49,4 @@ public class PrenotazioneController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    
 }

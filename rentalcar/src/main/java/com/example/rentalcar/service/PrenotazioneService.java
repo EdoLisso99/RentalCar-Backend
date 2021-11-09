@@ -3,6 +3,7 @@ package com.example.rentalcar.service;
 import com.example.rentalcar.repo.PrenotazioneRepo;
 import com.example.rentalcar.entities.Prenotazione;
 import com.example.rentalcar.exception.PrenotazioneNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -55,5 +56,4 @@ public class PrenotazioneService {
         }
 
     }
-
 }

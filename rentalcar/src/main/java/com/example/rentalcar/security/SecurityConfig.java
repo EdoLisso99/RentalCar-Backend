@@ -36,17 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().anyRequest().permitAll();
-
-//        http.authorizeRequests().antMatchers("/login").permitAll();
-//        http.authorizeRequests().antMatchers(GET, "/**").permitAll();
-//        http.authorizeRequests().antMatchers(DELETE, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
-//        http.authorizeRequests().antMatchers(DELETE, "/prenotazione/**").permitAll();
-//        http.authorizeRequests().antMatchers(POST, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
-//        http.authorizeRequests().antMatchers(POST, "/prenotazione/**").permitAll();
-//        http.authorizeRequests().antMatchers(PUT, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
-//        http.authorizeRequests().antMatchers(PUT, "/prenotazione/**").permitAll();
-        //TO. verificato che i permessi dati si applicano correttamente
+        http.authorizeRequests().antMatchers("/login").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/**").permitAll();
+        http.authorizeRequests().antMatchers(DELETE, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
+        http.authorizeRequests().antMatchers(DELETE, "/prenotazione/**").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
+        http.authorizeRequests().antMatchers(POST, "/prenotazione/**").permitAll();
+        http.authorizeRequests().antMatchers(PUT, "/utente/**", "/mezzo/**").hasAuthority("SuperUser");
+        http.authorizeRequests().antMatchers(PUT, "/prenotazione/**").permitAll();
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
