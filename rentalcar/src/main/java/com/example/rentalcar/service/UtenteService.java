@@ -37,8 +37,10 @@ public class UtenteService implements UserDetailsService {
         return utenteRepo.findAll();
     }
 
-    public Utente updateUtente(Utente utente){
-        utente.setPassword(passwordEncoder.encode(utente.getPassword()));
+    public Utente updateUtente(Utente utente, boolean flag){
+        if(flag){
+            utente.setPassword(passwordEncoder.encode(utente.getPassword()));
+        }
         return utenteRepo.save(utente);
     }
 
