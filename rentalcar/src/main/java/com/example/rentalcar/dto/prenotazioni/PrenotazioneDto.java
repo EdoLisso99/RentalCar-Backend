@@ -1,48 +1,20 @@
-package com.example.rentalcar.entities;
+package com.example.rentalcar.dto.prenotazioni;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.rentalcar.entities.Mezzo;
+import com.example.rentalcar.entities.Utente;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-public class Prenotazione implements Serializable {
+public class PrenotazioneDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
     private Long id;
-
-    @Column(name = "data_di_inizio")
     private Date dataDiInizio;
-
-    @Column(name = "data_di_fine")
     private Date dataDiFine;
-
-    @Column(name = "accettata")
     private Boolean accettata;
-
-    @ManyToOne
-    @JoinColumn(name = "auto")
     private Mezzo auto;
-
-    @ManyToOne
-    @JoinColumn(name = "utente")
     private Utente utente;
 
-    public Prenotazione() {
-    }
-
-    public Prenotazione(Long id, Date dataDiInizio, Date dataDiFine, Boolean accettata) {
-        this.id = id;
-        this.dataDiInizio = dataDiInizio;
-        this.dataDiFine = dataDiFine;
-        this.accettata = accettata;
-    }
-
-    public Prenotazione(Long id, Date dataDiInizio, Date dataDiFine, Boolean accettata, Mezzo auto, Utente utente) {
+    public PrenotazioneDto(Long id, Date dataDiInizio, Date dataDiFine, Boolean accettata, Mezzo auto, Utente utente) {
         this.id = id;
         this.dataDiInizio = dataDiInizio;
         this.dataDiFine = dataDiFine;
@@ -91,22 +63,11 @@ public class Prenotazione implements Serializable {
         this.auto = auto;
     }
 
-
     public Utente getUtente() {
         return utente;
     }
 
     public void setUtente(Utente utente) {
         this.utente = utente;
-    }
-
-    @Override
-    public String toString() {
-        return "Prenotazione{" +
-                "id=" + id +
-                ", dataDiInizio=" + dataDiInizio +
-                ", dataDiFine=" + dataDiFine +
-                ", accettata=" + accettata +
-                '}';
     }
 }

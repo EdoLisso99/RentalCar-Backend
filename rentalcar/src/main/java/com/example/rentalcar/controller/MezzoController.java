@@ -1,6 +1,6 @@
 package com.example.rentalcar.controller;
 
-import com.example.rentalcar.entities.Mezzo;
+import com.example.rentalcar.dto.mezzi.MezzoDto;
 import com.example.rentalcar.service.MezzoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,37 +18,37 @@ public class MezzoController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Mezzo>> getAllMezzi() {
-        List<Mezzo> mezzi = mezzoService.getAllMezzi();
+    public ResponseEntity<List<MezzoDto>> getAllMezzi() {
+        List<MezzoDto> mezzi = mezzoService.getAllMezzi();
         return new ResponseEntity<>(mezzi, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Mezzo> getMezzoById(@PathVariable("id") Long id) {
-        Mezzo mezzo = mezzoService.findMezzoById(id);
+    public ResponseEntity<MezzoDto> getMezzoById(@PathVariable("id") Long id) {
+        MezzoDto mezzo = mezzoService.findMezzoById(id);
         return new ResponseEntity<>(mezzo, HttpStatus.OK);
     }
 
     @GetMapping("/available")
-    public ResponseEntity<List<Mezzo>> getAvailableMezzi(@RequestParam String inizio, @RequestParam String fine){
-        List<Mezzo> mezzi = mezzoService.findAvailableMezzi(inizio, fine);
+    public ResponseEntity<List<MezzoDto>> getAvailableMezzi(@RequestParam String inizio, @RequestParam String fine){
+        List<MezzoDto> mezzi = mezzoService.findAvailableMezzi(inizio, fine);
         return new ResponseEntity<>(mezzi, HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Mezzo> createMezzo(@RequestBody Mezzo vehicle){
-        Mezzo mezzo = mezzoService.addMezzo(vehicle);
+    public ResponseEntity<MezzoDto> createMezzo(@RequestBody MezzoDto vehicle){
+        MezzoDto mezzo = mezzoService.addMezzo(vehicle);
         return new ResponseEntity<>(mezzo, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Mezzo> updateMezzo(@RequestBody Mezzo vehicle){
-        Mezzo mezzo = mezzoService.updateMezzo(vehicle);
+    public ResponseEntity<MezzoDto> updateMezzo(@RequestBody MezzoDto vehicle){
+        MezzoDto mezzo = mezzoService.updateMezzo(vehicle);
         return new ResponseEntity<>(mezzo, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Mezzo> updateMezzo(@PathVariable Long id) throws Exception {
+    public ResponseEntity<MezzoDto> updateMezzo(@PathVariable Long id) throws Exception {
         mezzoService.deleteMezzo(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
