@@ -1,8 +1,10 @@
 package com.example.rentalcar.service;
 
+import com.example.rentalcar.dto.utenti.UtenteDto;
 import com.example.rentalcar.entities.Utente;
 import com.example.rentalcar.exception.UtenteNotFoundException;
 import com.example.rentalcar.repo.UtenteRepo;
+import com.example.rentalcar.util.UtentiDtoFunctions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -22,41 +24,53 @@ public class UtenteService implements UserDetailsService {
 
     private final UtenteRepo utenteRepo;
     private final PasswordEncoder passwordEncoder;
+    private UtentiDtoFunctions utentiDtoFunctions = new UtentiDtoFunctions();
 
-    public Utente findUtenteByUsername(String username){
-        return utenteRepo.findByUsername(username).orElseThrow(() ->
+    public UtenteDto findUtenteByUsername(String username){
+        Utente utente = utenteRepo.findByUsername(username).orElseThrow(() ->
                 new UtenteNotFoundException("Utente " + username + " non è stato trovato"));
+        return utentiDtoFunctions.fromUtenteToUtenteDto(utente);
     }
 
-    public Utente addUtente(Utente utente){
-        utente.setPassword(passwordEncoder.encode(utente.getPassword()));
-        return utenteRepo.save(utente);
-    }
-
-    public List<Utente> getAllUtenti(){
-        return utenteRepo.findAll();
-    }
-
-    public Utente updateUtente(Utente utente, boolean flag){
+    public UtenteDto addUtente(UtenteDto utente, boolean flag){
         if(flag){
             utente.setPassword(passwordEncoder.encode(utente.getPassword()));
         }
-        return utenteRepo.save(utente);
+        utenteRepo.save(utentiDtoFunctions.fromUtenteDtoToUtente(utente));
+        return utente;
+    }
+
+    public List<UtenteDto> getAllUtenti(){
+        List<Utente> utenti = utenteRepo.findAll();
+        List<UtenteDto> utentiDto = new ArrayList<>();
+        utenti.forEach(utente -> {
+            utentiDto.add(utentiDtoFunctions.fromUtenteToUtenteDto(utente));
+        });
+        return utentiDto;
+    }
+
+    public UtenteDto updateUtente(UtenteDto utente, boolean flag){
+        if(flag){
+            utente.setPassword(passwordEncoder.encode(utente.getPassword()));
+        }
+        utenteRepo.save(utentiDtoFunctions.fromUtenteDtoToUtente(utente));
+        return utente;
     }
 
     public void deleteUtente(Utente utente){
         utenteRepo.delete(utente);
     }
 
-    public Utente findUtenteById(Long id){
-        return utenteRepo.findById(id).orElseThrow(() ->
+    public UtenteDto findUtenteById(Long id){
+        Utente utente = utenteRepo.findById(id).orElseThrow(() ->
                 new UtenteNotFoundException("Utente " + id + " non è stato trovato"));
+        return utentiDtoFunctions.fromUtenteToUtenteDto(utente);
     }
 
     public void deleteUtente(Long id) throws Exception {
-        Utente utente = findUtenteById(id);
+        UtenteDto utente = findUtenteById(id);
         if(utente != null){
-            utenteRepo.delete(utente);
+            utenteRepo.delete(utentiDtoFunctions.fromUtenteDtoToUtente(utente));
         }
         else {
             throw new Exception();

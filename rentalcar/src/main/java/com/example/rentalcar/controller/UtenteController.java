@@ -1,5 +1,6 @@
 package com.example.rentalcar.controller;
 
+import com.example.rentalcar.dto.utenti.UtenteDto;
 import com.example.rentalcar.entities.Utente;
 import com.example.rentalcar.service.UtenteService;
 import org.springframework.http.HttpStatus;
@@ -18,38 +19,38 @@ public class UtenteController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Utente>> getAllUtenti () {
-        List<Utente> utenti = utenteService.getAllUtenti();
+    public ResponseEntity<List<UtenteDto>> getAllUtenti () {
+        List<UtenteDto> utenti = utenteService.getAllUtenti();
         return new ResponseEntity<>(utenti, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Utente> getUtenteById (@PathVariable("id") Long id) {
-        Utente utente = utenteService.findUtenteById(id);
+    public ResponseEntity<UtenteDto> getUtenteById (@PathVariable("id") Long id) {
+        UtenteDto utente = utenteService.findUtenteById(id);
         return new ResponseEntity<>(utente, HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Utente> createUtente(@RequestBody Utente user){
-        Utente utente = utenteService.addUtente(user);
+    public ResponseEntity<UtenteDto> createUtente(@RequestBody UtenteDto user, @RequestParam boolean flag){
+        UtenteDto utente = utenteService.addUtente(user, flag);
         return new ResponseEntity<>(utente, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Utente> updateUtente(@RequestBody Utente user, @RequestParam boolean flag){
-        Utente utente = utenteService.updateUtente(user, flag);
+    public ResponseEntity<UtenteDto> updateUtente(@RequestBody UtenteDto user, @RequestParam boolean updatePw){
+        UtenteDto utente = utenteService.updateUtente(user, updatePw);
         return new ResponseEntity<>(utente, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUtente(@PathVariable Long id) throws Exception {
+    public ResponseEntity<UtenteDto> deleteUtente(@PathVariable Long id) throws Exception {
         utenteService.deleteUtente(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/username/{username}")
-    public ResponseEntity<Utente> getUtenteByUsername(@PathVariable String username){
-        Utente utente = utenteService.findUtenteByUsername(username);
+    public ResponseEntity<UtenteDto> getUtenteByUsername(@PathVariable String username){
+        UtenteDto utente = utenteService.findUtenteByUsername(username);
         return new ResponseEntity<>(utente, HttpStatus.OK);
     }
 

@@ -59,12 +59,12 @@ public class Utente implements Serializable {
     public Utente() {
     }
 
-    public Utente(Long id, String nome, String cognome, String ruolo, String username, String password, List<Prenotazione> prenotazioniUtenti) {
+    public Utente(Long id, String nome, String cognome, String ruolo, Date dataDiNascita, String username, String password, List<Prenotazione> prenotazioniUtenti) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.ruolo = ruolo;
-        this.dataDiNascita = new Date();
+        this.dataDiNascita = dataDiNascita;
         this.username = username;
         this.password = password;
         this.prenotazioniUtenti = prenotazioniUtenti;
