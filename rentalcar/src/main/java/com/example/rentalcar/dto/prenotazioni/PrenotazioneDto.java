@@ -8,13 +8,13 @@ import java.util.Date;
 public class PrenotazioneDto {
 
     private Long id;
-    private Date dataDiInizio;
-    private Date dataDiFine;
+    private String dataDiInizio;
+    private String dataDiFine;
     private Boolean accettata;
     private Mezzo auto;
     private Utente utente;
 
-    public PrenotazioneDto(Long id, Date dataDiInizio, Date dataDiFine, Boolean accettata, Mezzo auto, Utente utente) {
+    public PrenotazioneDto(Long id, String dataDiInizio, String dataDiFine, Boolean accettata, Mezzo auto, Utente utente) {
         this.id = id;
         this.dataDiInizio = dataDiInizio;
         this.dataDiFine = dataDiFine;
@@ -31,19 +31,19 @@ public class PrenotazioneDto {
         this.id = id;
     }
 
-    public Date getDataDiInizio() {
+    public String getDataDiInizio() {
         return dataDiInizio;
     }
 
-    public void setDataDiInizio(Date dataDiInizio) {
+    public void setDataDiInizio(String dataDiInizio) {
         this.dataDiInizio = dataDiInizio;
     }
 
-    public Date getDataDiFine() {
+    public String getDataDiFine() {
         return dataDiFine;
     }
 
-    public void setDataDiFine(Date dataDiFine) {
+    public void setDataDiFine(String dataDiFine) {
         this.dataDiFine = dataDiFine;
     }
 

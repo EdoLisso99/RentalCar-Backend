@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class MezzoService {
     private final MezziDtoFunctions mezziDtoFunctions = new MezziDtoFunctions();
 
     @Transactional
-    public MezzoDto addMezzo(MezzoDto mezzo){
+    public MezzoDto addMezzo(MezzoDto mezzo) throws ParseException {
         mezzoRepo.save(mezziDtoFunctions.fromMezzoDtoToMezzo(mezzo));
         return mezzo;
     }
@@ -34,7 +35,7 @@ public class MezzoService {
     }
 
     @Transactional
-    public MezzoDto updateMezzo(MezzoDto mezzo){
+    public MezzoDto updateMezzo(MezzoDto mezzo) throws ParseException {
         mezzoRepo.save(mezziDtoFunctions.fromMezzoDtoToMezzo(mezzo));
         return mezzo;
     }

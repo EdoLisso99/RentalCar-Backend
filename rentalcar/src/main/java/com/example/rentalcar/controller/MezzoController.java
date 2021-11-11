@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -36,13 +37,13 @@ public class MezzoController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<MezzoDto> createMezzo(@RequestBody MezzoDto vehicle){
+    public ResponseEntity<MezzoDto> createMezzo(@RequestBody MezzoDto vehicle) throws ParseException {
         MezzoDto mezzo = mezzoService.addMezzo(vehicle);
         return new ResponseEntity<>(mezzo, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<MezzoDto> updateMezzo(@RequestBody MezzoDto vehicle){
+    public ResponseEntity<MezzoDto> updateMezzo(@RequestBody MezzoDto vehicle) throws ParseException {
         MezzoDto mezzo = mezzoService.updateMezzo(vehicle);
         return new ResponseEntity<>(mezzo, HttpStatus.OK);
     }

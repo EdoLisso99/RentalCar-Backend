@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,7 +33,7 @@ public class UtenteService implements UserDetailsService {
         return utentiDtoFunctions.fromUtenteToUtenteDto(utente);
     }
 
-    public UtenteDto addUtente(UtenteDto utente, boolean flag){
+    public UtenteDto addUtente(UtenteDto utente, boolean flag) throws ParseException {
         if(flag){
             utente.setPassword(passwordEncoder.encode(utente.getPassword()));
         }
@@ -49,7 +50,7 @@ public class UtenteService implements UserDetailsService {
         return utentiDto;
     }
 
-    public UtenteDto updateUtente(UtenteDto utente, boolean flag){
+    public UtenteDto updateUtente(UtenteDto utente, boolean flag) throws ParseException {
         if(flag){
             utente.setPassword(passwordEncoder.encode(utente.getPassword()));
         }

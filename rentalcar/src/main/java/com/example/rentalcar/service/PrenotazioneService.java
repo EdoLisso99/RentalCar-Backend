@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class PrenotazioneService {
     private final PrenotazioniDtoFunctions prenotazioniDtoFunctions = new PrenotazioniDtoFunctions();
 
     @Transactional
-    public PrenotazioneDto addPrenotazione(PrenotazioneDto prenotazione){
+    public PrenotazioneDto addPrenotazione(PrenotazioneDto prenotazione) throws ParseException {
         prenotazioneRepo.save(prenotazioniDtoFunctions.fromPrentoazioneDtoToPrenotazione(prenotazione));
         return prenotazione;
     }
@@ -36,7 +37,7 @@ public class PrenotazioneService {
     }
 
     @Transactional
-    public PrenotazioneDto updatePrenotazione(PrenotazioneDto prenotazione){
+    public PrenotazioneDto updatePrenotazione(PrenotazioneDto prenotazione) throws ParseException {
         prenotazioneRepo.save(prenotazioniDtoFunctions.fromPrentoazioneDtoToPrenotazione(prenotazione));
         return prenotazione;
     }

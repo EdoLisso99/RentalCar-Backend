@@ -8,13 +8,13 @@ import java.util.Date;
 public class MezzoDto {
 
     private Long id;
-    private Date annoDiImmatricolazione;
+    private String annoDiImmatricolazione;
     private String casaCostruttrice;
     private String modello;
     private String targa;
     private String tipo;
 
-    public MezzoDto(Long id, Date annoDiImmatricolazione, String casaCostruttrice, String modello, String targa, String tipo) {
+    public MezzoDto(Long id, String annoDiImmatricolazione, String casaCostruttrice, String modello, String targa, String tipo) {
         this.id = id;
         this.annoDiImmatricolazione = annoDiImmatricolazione;
         this.casaCostruttrice = casaCostruttrice;
@@ -31,11 +31,11 @@ public class MezzoDto {
         this.id = id;
     }
 
-    public Date getAnnoDiImmatricolazione() {
+    public String getAnnoDiImmatricolazione() {
         return annoDiImmatricolazione;
     }
 
-    public void setAnnoDiImmatricolazione(Date annoDiImmatricolazione) {
+    public void setAnnoDiImmatricolazione(String annoDiImmatricolazione) {
         this.annoDiImmatricolazione = annoDiImmatricolazione;
     }
 

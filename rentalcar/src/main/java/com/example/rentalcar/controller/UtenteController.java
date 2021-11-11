@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -31,13 +32,13 @@ public class UtenteController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UtenteDto> createUtente(@RequestBody UtenteDto user, @RequestParam boolean flag){
+    public ResponseEntity<UtenteDto> createUtente(@RequestBody UtenteDto user, @RequestParam boolean flag) throws ParseException {
         UtenteDto utente = utenteService.addUtente(user, flag);
         return new ResponseEntity<>(utente, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UtenteDto> updateUtente(@RequestBody UtenteDto user, @RequestParam boolean updatePw){
+    public ResponseEntity<UtenteDto> updateUtente(@RequestBody UtenteDto user, @RequestParam boolean updatePw) throws ParseException {
         UtenteDto utente = utenteService.updateUtente(user, updatePw);
         return new ResponseEntity<>(utente, HttpStatus.OK);
     }

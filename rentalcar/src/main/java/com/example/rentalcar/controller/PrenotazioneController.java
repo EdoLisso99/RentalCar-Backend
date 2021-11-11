@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -33,13 +34,13 @@ public class PrenotazioneController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<PrenotazioneDto> createPrenotazione(@RequestBody PrenotazioneDto prenotazione){
+    public ResponseEntity<PrenotazioneDto> createPrenotazione(@RequestBody PrenotazioneDto prenotazione) throws ParseException {
         prenotazioneService.addPrenotazione(prenotazione);
         return new ResponseEntity<>(prenotazione, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<PrenotazioneDto> updatePrenotazione(@RequestBody PrenotazioneDto prenotazione){
+    public ResponseEntity<PrenotazioneDto> updatePrenotazione(@RequestBody PrenotazioneDto prenotazione) throws ParseException {
         prenotazioneService.updatePrenotazione(prenotazione);
         return new ResponseEntity<>(prenotazione, HttpStatus.OK);
     }

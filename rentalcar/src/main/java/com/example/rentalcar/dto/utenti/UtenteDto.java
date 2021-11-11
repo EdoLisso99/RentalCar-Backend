@@ -10,15 +10,15 @@ public class UtenteDto {
     private String username;
     private String password;
     private String ruolo;
-    private Date dataDiNascita;
+    private String dataDiNascita;
 
-    public UtenteDto(Long id, String nome, String cognome, String username, String password, String ruolo, Date annoDiNascita) {
+    public UtenteDto(Long id, String nome, String cognome, String username, String password, String ruolo, String dataDiNascita) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
         this.password = password;
-        this.dataDiNascita = annoDiNascita;
+        this.dataDiNascita = dataDiNascita;
         this.ruolo = ruolo;
     }
 
@@ -62,12 +62,12 @@ public class UtenteDto {
         this.password = password;
     }
 
-    public Date getDataDiNascita() {
+    public String getDataDiNascita() {
         return dataDiNascita;
     }
 
-    public void setDataDiNascita(Date annoDiNascita) {
-        this.dataDiNascita = annoDiNascita;
+    public void setDataDiNascita(String dataDiNascita) {
+        this.dataDiNascita = dataDiNascita;
     }
 
     public String getRuolo() {
